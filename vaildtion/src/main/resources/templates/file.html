@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <title>Create Account</title>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <img src="/api/placeholder/120/40" alt="Company Logo" class="logo">
+        <h1>Create a new account</h1>
+        <p class="subtitle">Fill out all the fields to easily create your new account!</p>
+    </div>
+
+    <form id="signup-form" th:action="@{/ProcessForm}" method="post" th:object="${User}">
+        <div class="form-section">
+            <h2 class="section-title">👤 Personal Information</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="firstname" th:field="*{firstName}">
+                    <div th:if="${#fields.hasErrors('firstName')}" style="color: red;">
+                        <span th:errors="*{firstName}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="lastname" th:field="*{lastName}">
+                    <div th:if="${#fields.hasErrors('lastName')}" style="color: red;">
+                        <span th:errors="*{lastName}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="birthdate">Date of Birth</label>
+                    <span class="input-icon">📅</span>
+                    <input type="date" id="birthdate" th:field="*{dateOfBirth}">
+                    <div th:if="${#fields.hasErrors('dateOfBirth')}" style="color: red;">
+                        <span th:errors="*{dateOfBirth}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" th:field="*{gender}" value="male"> Male
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" th:field="*{gender}" value="female"> Female
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" th:field="*{gender}" value="prefer-not-to-say"> Prefer not to say
+                        </label>
+                    </div>
+                    <div th:if="${#fields.hasErrors('gender')}" style="color: red;">
+                        <span th:errors="*{gender}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-title">📱 Contact Information</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <span class="input-icon">✉️</span>
+                    <input type="email" id="email" th:field="*{email}">
+                    <div th:if="${#fields.hasErrors('email')}" style="color: red;">
+                        <span th:errors="*{email}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <span class="input-icon">📱</span>
+                    <input type="tel" id="phone" th:field="*{phone}">
+                    <div th:if="${#fields.hasErrors('phone')}" style="color: red;">
+                        <span th:errors="*{phone}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-title">📍 Address</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <span class="input-icon">🌎</span>
+                    <select id="country" th:field="*{country}">
+                        <option value="">Select country</option>
+                        <option value="us">United States</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="ca">Canada</option>
+                    </select>
+                    <div th:if="${#fields.hasErrors('country')}" style="color: red;">
+                        <span th:errors="*{country}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <span class="input-icon">🏢</span>
+                    <input type="text" id="city" th:field="*{city}">
+                    <div th:if="${#fields.hasErrors('city')}" style="color: red;">
+                        <span th:errors="*{city}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="postal">Postal Code</label>
+                    <span class="input-icon">📮</span>
+                    <input type="text" id="postal" th:field="*{postal}">
+                    <div th:if="${#fields.hasErrors('postal')}" style="color: red;">
+                        <span th:errors="*{postal}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2 class="section-title">🔒 Account Information</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="password" th:field="*{password}">
+                    <div th:if="${#fields.hasErrors('password')}" style="color: red;">
+                        <span th:errors="*{password}"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="confirm-password">
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button type="reset" class="btn btn-reset">Reset Form</button>
+            <button type="submit" class="btn btn-submit">Create Account</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        if (password !== confirmPassword) {
+            e.preventDefault();
+            alert('Passwords do not match!');
+            return false;
+        }
+    });
+
+
+</script>
+
+</body>
+</html>
